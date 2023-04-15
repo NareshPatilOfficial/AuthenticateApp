@@ -5,7 +5,7 @@ import { Colors } from "../../constants/styles";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-function AuthContent({ isLogin }) {
+function AuthContent({ isLogin, onAuthenticate }) {
     const navigation = useNavigation();
 
     const [credentialValid, setCredentialValid] = useState({
@@ -44,6 +44,7 @@ function AuthContent({ isLogin }) {
             })
             return
         }
+        onAuthenticate(email, password);
     }
 
     return (
