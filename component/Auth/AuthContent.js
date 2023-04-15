@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import AuthForm from "./AuthForm";
 import FaltButton from "../UI/FlatButton";
 import { Colors } from "../../constants/styles";
@@ -26,17 +26,24 @@ function AuthContent({ isLogin }) {
         password = password.trim();
         confirmPassword = confirmPassword.trim();
 
-        const isEmailValid = email.inclues('@');
-        const isConfirmEmailValid = confirmEmail === email
+        const isEmailValid = email.includes('@');
         const isPasswordValid = password.length > 6;
-        const isConfirmPasswordValid = confirmPassword === password;
+        const isEmailsAreEqual = confirmEmail === email;
+        const isPasswordsAreEqual = confirmPassword === password;
 
-        setCredentialValid({
-            email: isEmailValid,
-            confirmEmail: isConfirmEmailValid,
-            password: isPasswordValid,
-            confirmPassword: isConfirmPasswordValid
-        })
+        if (
+            !isEmailValid || !isPasswordValid
+            || (!isLogin && (!isEmailsAreEqual || !isPasswordsAreEqual))
+        ) {
+            Alert.alert('Invalid input', 'Please check your credentials.');
+            setCredentialValid({
+                email: isEmailValid,
+                confirmEmail: isEmailValid && isEmailsAreEqual,
+                password: isPasswordValid,
+                confirmPassword: isPasswordValid && isPasswordsAreEqual
+            })
+            return
+        }
     }
 
     return (
