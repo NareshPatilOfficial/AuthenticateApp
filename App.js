@@ -5,7 +5,7 @@ import AuthContextProvider from './store/auth-context';
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <AuthContextProvider>
         <RootNavigationWrapper />
       </AuthContextProvider>
