@@ -12,7 +12,7 @@ async function authenticate({ mode, email, password }) {
             returnSecureToken: true
         }
     )
-    console.log('response',response.data);
+    // console.log('response',response.data);
     return response.data;
 }
 
