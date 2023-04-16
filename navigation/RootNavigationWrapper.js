@@ -1,12 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./AuthStack";
-// import AuthenticatedStack from "./AuthenticatedStack";
 
-function RootNavigationWrapper(){
-    return(
+import AuthStack from "./AuthStack";
+import { useContext } from "react";
+import { AuthContext } from "../store/auth-context";
+import AuthenticatedStack from "./AuthenticatedStack";
+
+function RootNavigationWrapper() {
+    const authCnx = useContext(AuthContext);
+
+    return (
         <NavigationContainer>
-                <AuthStack />
-                {/* <AuthenticatedStack /> */}
+            {
+                authCnx.isAuthenticated
+                    ? <AuthenticatedStack />
+                    : <AuthStack />
+            }
         </NavigationContainer>
     )
 }

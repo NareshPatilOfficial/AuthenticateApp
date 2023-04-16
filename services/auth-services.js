@@ -12,13 +12,14 @@ async function authenticate({ mode, email, password }) {
             returnSecureToken: true
         }
     )
-    console.log(response.data);
+    console.log('response',response.data);
+    return response.data;
 }
 
 export async function createUser(email, password) {
-    await authenticate({ mode: 'signUp', email, password });
+    return await authenticate({ mode: 'signUp', email, password });
 }
 
 export async function logInUser(email, password) {
-    await authenticate({ mode: 'signInWithPassword', email, password });
+    return await authenticate({ mode: 'signInWithPassword', email, password });
 }
