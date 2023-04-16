@@ -1,20 +1,21 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/styles";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getWelcomeDataService } from "../services/data-service";
+import { AuthContext } from "../store/auth-context";
 
 function WelcomeScreen() {
     const [welcomeMessage, setWelcomeMessage] = useState();
+    const authCtx = useContext(AuthContext);
+    const token = authCtx.token
 
     useEffect(() => {
-        try {
-            getWelcomeDataService().then((response) => {
-                setWelcomeMessage(response.data);
-            });
-        } catch (error) {
+        getWelcomeDataService({ token }).then((response) => {
+            setWelcomeMessage(response.data);
+        }).catch(() => {
             Alert.alert('Error occured!', 'Could not get welcome message data');
-        }
-    }, []);
+        })
+    }, [token]);
 
     return (
         <View style={styles.container}>
